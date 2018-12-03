@@ -9,27 +9,36 @@
 import UIKit
 
 class ViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
     
+    var emojiChoices = ["🎄","🎁","🎅🏻","🤶🏻"]
     var flipCount: Int = 0 {
         didSet {
             flipCountLabel.text = "Flips: \(flipCount)"
         }
     }
     
+
+    //    MARK: - Outlets
+    
     @IBOutlet weak var flipCountLabel: UILabel!
+    @IBOutlet var cardButtons: [UIButton]!
+
+    
+    //MARK: - Actions
     
     @IBAction func touchCard(_ sender: UIButton) {
         flipCount += 1
-        flipCard(withEmoji: "🎄", on: sender)
+        if let cardNumber = cardButtons.index(of: sender) {
+            flipCard(withEmoji: emojiChoices[cardNumber], on: sender)
+        }
     }
     
-    @IBAction func touchSecondCard(_ sender: UIButton) {
-        flipCount += 1
-        flipCard(withEmoji: "🎁", on: sender)
+    
+    //MARK:- Lifecycle Methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
     }
     
     func flipCard(withEmoji emoji: String, on button: UIButton) {
